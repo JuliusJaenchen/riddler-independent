@@ -2,6 +2,7 @@ package hwr.oop.riddler.logic;
 
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
+import hwr.oop.riddler.model.component.CellGroup;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class SudokuValidator {
     }
 
     private boolean rowsAreValid(){
-        for (Cell[] row : sudoku.getRows()) {
+        for (CellGroup row : sudoku.getRows()) {
             if (hasDuplicate(row)) {
                 return false;
             }
@@ -24,7 +25,7 @@ public class SudokuValidator {
     }
 
     private boolean columnsAreValid() {
-        for (Cell[] column : sudoku.getColumns()) {
+        for (CellGroup column : sudoku.getColumns()) {
             if (hasDuplicate(column)) {
                 return false;
             }
@@ -33,7 +34,7 @@ public class SudokuValidator {
     }
 
     private boolean boxesAreValid() {
-        for (Cell[] box : sudoku.getBoxes()) {
+        for (CellGroup box : sudoku.getBoxes()) {
             if (hasDuplicate(box)) {
                 return false;
             }
@@ -41,13 +42,13 @@ public class SudokuValidator {
         return true;
     }
 
-    private boolean hasDuplicate(Cell[] testSubject) {
+    private boolean hasDuplicate(CellGroup testSubject) {
         Set<Integer> encounteredValues = new HashSet<>();
-        for (Cell cell : testSubject) {
-            if (encounteredValues.contains(cell.value)) {
+        for (Cell cell : testSubject.getCells()) {
+            if (encounteredValues.contains(cell.getValue())) {
                 return true;
             }
-            encounteredValues.add(cell.value);
+            encounteredValues.add(cell.getValue());
         }
         return false;
     }

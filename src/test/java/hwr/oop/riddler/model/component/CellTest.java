@@ -9,7 +9,7 @@ class CellTest {
     void cell_blankCellHasPossibles() {
         var cell = new Cell();
         for (int i = 1; i < 10; i++) {
-            if (!cell.possibles.contains(i)) {
+            if (!cell.getPossibles().contains(i)) {
                 fail();
             }
         }
@@ -19,7 +19,7 @@ class CellTest {
     void cell_filledCellDoesNotHavePossibles() {
         for (int i = 1; i < 10; i++) {
             var cell = new Cell(i);
-            if (cell.possibles != null) {
+            if (cell.getPossibles() != null) {
                 fail();
             }
         }
