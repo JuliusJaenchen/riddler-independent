@@ -1,45 +1,83 @@
 package hwr.oop.riddler.model.component;
 
-import java.util.HashSet;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+@ToString
 public class Cell {
     private int value;
-    private Set<Integer> possibles;
+    @Getter
+    private List<Integer> possibles;
 
     public Cell(int value) {
+        //TODO value between 1 and 9
         this.value = value;
     }
 
     public Cell() {
-        possibles = new HashSet<>(Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        this.possibles = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        resetAssumption();
+    }
+
+
+    @Getter
+    @Setter
+    private int assumedValue;
+    @Getter
+    @Setter
+    private List<Integer> assumedPossibles;
+
+    public void resetAssumption() {
+        this.assumedPossibles = new ArrayList<>(possibles);
+        this.assumedValue = 0;
     }
 
     public boolean isSet() {
-        return value != 0;
+        return getValue() != 0;
     }
 
-    public int getValue() {
-        return value;
+    public void setValue(int value) {
+        if (this.value != 0) throw new IllegalArgumentException("Value was already set");
+        this.value = value;
+        this.assumedValue = 0;
     }
 
     public boolean removePossible(int possible) {
-        return possibles.remove(possible);
+        removeAssumedPossible(possible);
+        var iterator = possibles.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next() == possible) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
-    public Set<Integer> getPossibles() {
-        return possibles;
+    public boolean removeAssumedPossible(int possible) {
+        var iterator = assumedPossibles.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next() == possible) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean removeAllPossibles(Set<Integer> allValues) {
+        assumedPossibles.removeAll(allValues);
         return possibles.removeAll(allValues);
     }
 
-    @Override
-    public String toString() {
-        return "Cell{" +
-                "value=" + value +
-                ", possibles=" + possibles +
-                '}';
+    public int getValue() {
+        if (value != 0) return value;
+        if (assumedValue != 0) return assumedValue;
+        return 0;
     }
 }
