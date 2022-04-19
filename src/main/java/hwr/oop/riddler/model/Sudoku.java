@@ -21,13 +21,19 @@ public class Sudoku {
             int[] row = input[rowIndex];
             for (int columnIndex = 0; columnIndex < size; columnIndex++) {
                 int cellValue = row[columnIndex];
-                cells[rowIndex][columnIndex] = new Cell(cellValue);
+                Cell cell;
+                if (cellValue != 0) {
+                    cell = new Cell(cellValue);
+                } else {
+                    cell = new Cell();
+                }
+                cells[rowIndex][columnIndex] = cell;
             }
         }
     }
 
-    public Set<Cell> getAllCells() {
-        var collectedCells = new HashSet<Cell>();
+    public List<Cell> getAllCells() {
+        var collectedCells = new ArrayList<Cell>();
         for (Cell[] rows : cells) {
             Collections.addAll(collectedCells, rows);
         }
@@ -52,7 +58,7 @@ public class Sudoku {
         int boxLongitude = boxIndex % 3;
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                boxCells.add(cells[boxLatitude + y][boxLongitude + x]);
+                boxCells.add(cells[boxLatitude * 3 + y][boxLongitude * 3 + x]);
             }
         }
         return new CellGroup(boxCells);

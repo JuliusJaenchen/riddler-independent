@@ -45,10 +45,12 @@ public class SudokuValidator {
     private boolean hasDuplicate(CellGroup testSubject) {
         Set<Integer> encounteredValues = new HashSet<>();
         for (Cell cell : testSubject.getCells()) {
-            if (encounteredValues.contains(cell.getValue())) {
-                return true;
+            if (cell.isSet()) {
+                if (encounteredValues.contains(cell.getValue())) {
+                    return true;
+                }
+                encounteredValues.add(cell.getValue());
             }
-            encounteredValues.add(cell.getValue());
         }
         return false;
     }
