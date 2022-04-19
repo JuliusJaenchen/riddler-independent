@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class SudokuTest {
+class SudokuTest {
     private final int[][] unsolvedSudokuArray = {
             {0,0,0, 9,0,0, 4,0,0},
             {5,0,6, 0,0,0, 0,0,0},
@@ -25,7 +25,7 @@ public class SudokuTest {
 
 
     @Test
-    public void sudoku_constructorFillsCellsCorrectly() {
+    void sudoku_constructorFillsCellsCorrectly() {
         for (int rowIndex = 0; rowIndex < unsolvedSudokuArray.length; rowIndex ++) {
             for (int columnIndex = 0; columnIndex < unsolvedSudokuArray[0].length; columnIndex++) {
                 if (unsolvedSudoku.cells[rowIndex][columnIndex].value != unsolvedSudokuArray[rowIndex][columnIndex]) {
@@ -36,7 +36,7 @@ public class SudokuTest {
     }
 
     @Test
-    public void sudoku_getsFirstRow() {
+    void sudoku_getsFirstRow() {
         int[] firstRowValues = {0,0,0, 9,0,0, 4,0,0};
         Cell[] row = unsolvedSudoku.getRow(0);
         for (int i = 0; i < 9; i++) {
@@ -47,7 +47,7 @@ public class SudokuTest {
     }
 
     @Test
-    public void sudoku_getsFirstColumn() {
+    void sudoku_getsFirstColumn() {
         int[] firstColumnValues = {0,5,9,0,0,6,0,0,0};
         Cell[] column = unsolvedSudoku.getColumn(0);
         for (int i = 0; i < 9; i++) {
@@ -58,7 +58,7 @@ public class SudokuTest {
     }
 
     @Test
-    public void sudoku_getsFirstBox() {
+    void sudoku_getsFirstBox() {
         int[] firstBoxValues = {0,0,0,5,0,6,9,0,0};
         Cell[] box = unsolvedSudoku.getBox(0);
         for (int i = 0; i < 9; i++) {
@@ -69,7 +69,7 @@ public class SudokuTest {
     }
 
     @Test
-    public void sudoku_getsFirstRowValues() {
+    void sudoku_getsFirstRowValues() {
         Set<Integer> expectedValues = Set.of(9, 4);
         if (!unsolvedSudoku.getRowValues(0).equals(expectedValues)) {
             fail();
@@ -77,7 +77,7 @@ public class SudokuTest {
     }
 
     @Test
-    public void sudoku_getsFirstColumnValues() {
+    void sudoku_getsFirstColumnValues() {
         Set<Integer> expectedValues = Set.of(5, 9, 6);
         if (!unsolvedSudoku.getColumnValues(0).equals(expectedValues)) {
             fail();
@@ -85,7 +85,7 @@ public class SudokuTest {
     }
 
     @Test
-    public void sudoku_getsFirstBoxValues() {
+    void sudoku_getsFirstBoxValues() {
         Set<Integer> expectedValues = Set.of(5, 9, 6);
         if (!unsolvedSudoku.getBoxValues(0).equals(expectedValues)) {
             fail();
