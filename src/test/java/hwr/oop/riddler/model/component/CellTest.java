@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class CellTest {
     @Test
     void cell_blankCellHasPossibles() {
-        var cell = new Cell(0);
+        var cell = new Cell();
         for (int i = 1; i < 10; i++) {
             if (!cell.possibles.contains(i)) {
                 fail();
