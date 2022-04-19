@@ -8,14 +8,11 @@ public class FileConverter {
             var sudoku = new int[9][9];
             int rowIndex = 0;
             for (String line; (line = bufferedReader.readLine()) != null; rowIndex++) {
-                line = line.replaceAll(" ", "");
+                line = line.replace(" ", "");
+                line = line.replace("_", "0");
                 for (int columnIndex = 0; columnIndex < 9; columnIndex++) {
                     char field = line.charAt(columnIndex);
-                    if(field == '_') {
-                        sudoku[rowIndex][columnIndex] = 0;
-                    } else {
-                        sudoku[rowIndex][columnIndex] = Character.getNumericValue(field);
-                    }
+                    sudoku[rowIndex][columnIndex] = Character.getNumericValue(field);
                 }
             }
             return sudoku;
