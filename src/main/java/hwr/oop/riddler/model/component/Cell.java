@@ -9,8 +9,9 @@ public class Cell {
     
     public Cell(int value) {
         this.value = value;
-        if (value == 0) {
-            possibles = new HashSet<>(Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
-        }
+    }
+
+    public Cell() {
+        possibles = new HashSet<>(Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 }
