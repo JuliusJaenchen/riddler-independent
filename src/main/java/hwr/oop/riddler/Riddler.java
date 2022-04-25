@@ -36,7 +36,6 @@ public class Riddler {
             System.out.println("step " + solvingIndex);
             try {
                 while (solverList.get(solvingIndex).doSolvingStep(sudoku)) {
-                    System.out.println("step succeed");
                     solvingIndex = 0;
                 }
             } catch (Exception e) {

@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Cell {
     private int value;
     @Getter
-    private List<Integer> possibles;
+    private Set<Integer> possibles;
 
     public Cell(int value) {
         //TODO value between 1 and 9
@@ -20,7 +20,7 @@ public class Cell {
     }
 
     public Cell() {
-        this.possibles = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        this.possibles = new HashSet<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
         resetAssumptions();
     }
 
@@ -30,10 +30,10 @@ public class Cell {
     private int assumedValue;
     @Getter
     @Setter
-    private List<Integer> assumedPossibles;
+    private Set<Integer> assumedPossibles;
 
     public void resetAssumptions() {
-        this.assumedPossibles = new ArrayList<>(possibles);
+        this.assumedPossibles = new HashSet<>(possibles);
         this.assumedValue = 0;
     }
 
@@ -54,26 +54,13 @@ public class Cell {
 
     public boolean removePossible(int possible) {
         removeAssumedPossible(possible);
-        var iterator = possibles.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next() == possible) {
-                iterator.remove();
-                return true;
-            }
-        }
+        possibles.remove(possible);
         return false;
     }
 
     public boolean removeAssumedPossible(int possible) {
         if (assumedPossibles == null) return false;
-        var iterator = assumedPossibles.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next() == possible) {
-                iterator.remove();
-                return true;
-            }
-        }
-        return false;
+        return assumedPossibles.remove(possible);
     }
 
     public boolean removeAllPossibles(Set<Integer> allValues) {
@@ -89,5 +76,9 @@ public class Cell {
 
     public boolean hasAssumedPossibles() {
         return !assumedPossibles.isEmpty();
+    }
+
+    public int getSingleAssumedPossible() {
+        return assumedPossibles.iterator().next();
     }
 }

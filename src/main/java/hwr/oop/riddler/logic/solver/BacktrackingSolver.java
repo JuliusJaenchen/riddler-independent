@@ -15,7 +15,7 @@ public class BacktrackingSolver implements IterativeSudokuSolver {
     public boolean doSolvingStep(Sudoku sudoku) {
         Cell cell;
         while ((cell = getNextUnsolved(backtrackingStack.size(), sudoku)) != null) {
-            cell.setAssumedValue(cell.getAssumedPossibles().get(0));
+            cell.setAssumedValue(cell.getSingleAssumedPossible());
             backtrackingStack.push(cell);
 
             if (!new SudokuValidator().isValid(sudoku) && backtrack()) {
