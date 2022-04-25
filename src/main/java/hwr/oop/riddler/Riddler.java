@@ -12,7 +12,7 @@ public class Riddler {
         var converter = new FileConverter();
 
         if (args.length != 1) {
-            throw new IllegalArgumentException("USAGE: java Riddler [filepath]");
+            throw new IllegalArgumentException("USAGE: java hwr.oop.riddler.Riddler [filepath]");
         }
         String filepath = args[args.length - 1];
 
