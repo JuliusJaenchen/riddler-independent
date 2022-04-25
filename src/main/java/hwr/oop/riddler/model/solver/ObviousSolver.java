@@ -9,7 +9,6 @@ public class ObviousSolver implements IterativeSudokuSolver {
         for (Cell cell : sudoku.getAllCells()) {
             if (!cell.isSet() && cell.getPossibles().size() == 1) {
                 cell.setValue(cell.getPossibles().iterator().next());
-                System.out.println("OBVSIO");
                 return true;
             }
         }

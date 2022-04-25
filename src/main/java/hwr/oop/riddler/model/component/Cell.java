@@ -21,7 +21,7 @@ public class Cell {
 
     public Cell() {
         this.possibles = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9));
-        resetAssumption();
+        resetAssumptions();
     }
 
 
@@ -32,10 +32,15 @@ public class Cell {
     @Setter
     private List<Integer> assumedPossibles;
 
-    public void resetAssumption() {
+    public void resetAssumptions() {
         this.assumedPossibles = new ArrayList<>(possibles);
         this.assumedValue = 0;
     }
+
+    public void resetAssumedValue() {
+        this.assumedValue = 0;
+    }
+
 
     public boolean isSet() {
         return getValue() != 0;
