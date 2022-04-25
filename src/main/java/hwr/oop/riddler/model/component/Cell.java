@@ -65,6 +65,7 @@ public class Cell {
     }
 
     public boolean removeAssumedPossible(int possible) {
+        if (assumedPossibles == null) return false;
         var iterator = assumedPossibles.iterator();
         while (iterator.hasNext()) {
             if (iterator.next() == possible) {

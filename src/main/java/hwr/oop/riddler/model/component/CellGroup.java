@@ -26,4 +26,17 @@ public class CellGroup {
         }
         return values;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CellGroup cellGroup = (CellGroup) o;
+        return cells.equals(cellGroup.cells);
+    }
+
+    @Override
+    public int hashCode() {
+        return cells.hashCode();
+    }
 }

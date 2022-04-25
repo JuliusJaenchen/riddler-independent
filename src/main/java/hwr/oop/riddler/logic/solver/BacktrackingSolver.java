@@ -18,8 +18,8 @@ public class BacktrackingSolver implements IterativeSudokuSolver {
             cell.setAssumedValue(cell.getAssumedPossibles().get(0));
             backtrackingStack.push(cell);
 
-            if (!new SudokuValidator().isValid(sudoku)) {
-                if (backtrack()) return true;
+            if (!new SudokuValidator().isValid(sudoku) && backtrack()) {
+                return true;
             }
         }
         return false;
@@ -38,7 +38,6 @@ public class BacktrackingSolver implements IterativeSudokuSolver {
         if (backtrackingStack.isEmpty()) {
             cell.removePossible(cell.getAssumedValue());
             cell.resetAssumptions();
-            //System.out.println("back: removed possible");
             return true;
         }
         cell.resetAssumedValue();

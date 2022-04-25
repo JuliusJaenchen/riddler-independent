@@ -2,10 +2,7 @@ package hwr.oop.riddler;
 
 import hwr.oop.riddler.io.FileConverter;
 import hwr.oop.riddler.logic.SudokuValidator;
-import hwr.oop.riddler.logic.solver.BacktrackingSolver;
-import hwr.oop.riddler.logic.solver.IterativeSudokuSolver;
-import hwr.oop.riddler.logic.solver.ObviousSolver;
-import hwr.oop.riddler.logic.solver.SimpleReducePossiblesSolver;
+import hwr.oop.riddler.logic.solver.*;
 import hwr.oop.riddler.model.Sudoku;
 
 import java.util.List;
@@ -23,7 +20,7 @@ public class Riddler {
 
         for (int i = 1; i < 20; i++) {
             var sudoku = new Sudoku(converter.parseInputFile("txt/sudoku." + i + ".txt"));
-            List<IterativeSudokuSolver> solverList = List.of(new SimpleReducePossiblesSolver(), new ObviousSolver(), new BacktrackingSolver());
+            List<IterativeSudokuSolver> solverList = List.of(new SimpleReducePossiblesSolver(), new AdvancedReducePossiblesSolver(), new ObviousSolver(), new BacktrackingSolver());
             solve(sudoku, solverList);
             if (!new SudokuValidator().isValid(sudoku)) {
                 throw new IllegalArgumentException("Awgoksegise");
