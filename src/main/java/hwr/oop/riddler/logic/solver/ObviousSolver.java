@@ -1,4 +1,4 @@
-package hwr.oop.riddler.model.solver;
+package hwr.oop.riddler.logic.solver;
 
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;

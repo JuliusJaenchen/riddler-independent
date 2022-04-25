@@ -2,11 +2,11 @@ package hwr.oop.riddler;
 
 import hwr.oop.riddler.io.FileConverter;
 import hwr.oop.riddler.logic.SudokuValidator;
+import hwr.oop.riddler.logic.solver.BacktrackingSolver;
+import hwr.oop.riddler.logic.solver.IterativeSudokuSolver;
+import hwr.oop.riddler.logic.solver.ObviousSolver;
+import hwr.oop.riddler.logic.solver.SimpleReducePossiblesSolver;
 import hwr.oop.riddler.model.Sudoku;
-import hwr.oop.riddler.model.solver.BacktrackingSolver;
-import hwr.oop.riddler.model.solver.IterativeSudokuSolver;
-import hwr.oop.riddler.model.solver.ObviousSolver;
-import hwr.oop.riddler.model.solver.SimpleReducePossiblesSolver;
 
 import java.util.List;
 
@@ -36,10 +36,10 @@ public class Riddler {
     private static void solve(Sudoku sudoku, List<IterativeSudokuSolver> solverList) {
         int solvingIndex = 0;
         while (solvingIndex < solverList.size()) {
-            //System.out.println("step " + solvingIndex);
+            System.out.println("step " + solvingIndex);
             try {
                 while (solverList.get(solvingIndex).doSolvingStep(sudoku)) {
-                    //    System.out.println("step succeed");
+                    System.out.println("step succeed");
                     solvingIndex = 0;
                 }
             } catch (Exception e) {
@@ -52,6 +52,6 @@ public class Riddler {
             solvingIndex++;
 
         }
-        //sudoku.print();
+        sudoku.print();
     }
 }

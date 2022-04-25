@@ -85,4 +85,8 @@ public class Cell {
         if (assumedValue != 0) return assumedValue;
         return 0;
     }
+
+    public boolean hasAssumedPossibles() {
+        return !assumedPossibles.isEmpty();
+    }
 }
