@@ -18,8 +18,8 @@ public class Riddler {
 
         long start = System.currentTimeMillis();
 
-        for (int i = 1; i < 20; i++) {
-            var sudoku = new Sudoku(converter.parseInputFile("txt/sudoku." + i + ".txt"));
+        for (int i = 1; i < 200; i++) {
+            var sudoku = new Sudoku(converter.parseInputFile("txt/sudoku.d.txt"));
             List<IterativeSudokuSolver> solverList = List.of(new SimpleReducePossiblesSolver(), new AdvancedReducePossiblesSolver(), new ObviousSolver(), new BacktrackingSolver());
             solve(sudoku, solverList);
             if (!new SudokuValidator().isValid(sudoku)) {
@@ -33,7 +33,7 @@ public class Riddler {
     private static void solve(Sudoku sudoku, List<IterativeSudokuSolver> solverList) {
         int solvingIndex = 0;
         while (solvingIndex < solverList.size()) {
-            System.out.println("step " + solvingIndex);
+            //System.out.println("step " + solvingIndex);
             try {
                 while (solverList.get(solvingIndex).doSolvingStep(sudoku)) {
                     solvingIndex = 0;
