@@ -18,7 +18,7 @@ public class AdvancedReducePossiblesSolver implements IterativeSudokuSolver {
                         rows.add(getRow(cell, sudoku));
                     }
                 }
-                if (removePossibleFromGroupByCols(sudoku, box, i, rows)) return true;
+                if (removePossibleInBoxByGroupLine(sudoku, box, i, rows)) return true;
 
 
                 Set<CellGroup> cols = new HashSet<>();
@@ -27,19 +27,50 @@ public class AdvancedReducePossiblesSolver implements IterativeSudokuSolver {
                         cols.add(getCol(cell, sudoku));
                     }
                 }
-                if (removePossibleFromGroupByCols(sudoku, box, i, cols)) return true;
+                if (removePossibleInBoxByGroupLine(sudoku, box, i, cols)) return true;
             }
         }
         return false;
     }
 
-    private boolean removePossibleFromGroupByCols(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> cols) {
-        if (cols.size() == 1) {
-            CellGroup col = cols.iterator().next();
-            for (Cell cell : col.getCells()) {
+    private boolean removePossibleInBoxByGroupLine(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> groups) {
+        if (groups.size() == 1) {
+            CellGroup group = groups.iterator().next();
+            for (Cell cell : group.getCells()) {
                 if (!cell.isSet() && !getBoxOfCell(cell, sudoku).equals(box) && cell.getPossibles().contains(i)) {
                     cell.removePossible(i);
                     return true;
+                }
+            }
+        } else if (groups.size() == 3) {
+            if (doStuff(sudoku, box, i, groups)) return true;
+        }
+        return false;
+    }
+
+    private boolean doStuff(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> rows) {
+        //System.out.println("Do stuff in box " + Arrays.toString(box.getAllValues().toArray()));
+        Set<Integer> indices = new HashSet<>();
+        int level = 0;
+        for (CellGroup row : rows) {
+            level++;
+            for (Cell cell : row.getCells()) {
+                if (!cell.isSet() && cell.getPossibles().contains(i) && !getBoxOfCell(cell, sudoku).equals(box)) {
+                    //System.out.println("Found " + i + " in another box");
+                    indices.add(level);
+                }
+            }
+        }
+        level = 0;
+        if (indices.size() == 2) {
+            for (CellGroup row : rows) {
+                level++;
+                for (Cell cell : row.getCells()) {
+                    if (!cell.isSet() && cell.getPossibles().contains(i) && getBoxOfCell(cell, sudoku).equals(box) && indices.contains(level)) {
+                        cell.removePossible(i);
+                        System.out.println("REMOVED POSSBILE");
+                        return true;
+                    }
                 }
             }
         }
