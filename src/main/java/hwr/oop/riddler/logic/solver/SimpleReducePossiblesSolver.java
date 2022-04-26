@@ -16,7 +16,7 @@ public class SimpleReducePossiblesSolver implements IterativeSudokuSolver {
         for (CellGroup cellGroup : allCellGroups) {
             for (Cell cell : cellGroup.getCells()) {
                 if (cell.getPossibles() != null) {
-                    if (cell.removePossibles(cellGroup.getAllValues())) {
+                    if (cell.removeAllPossibles(cellGroup.getAllValues())) {
                         return true;
                     }
                 }
