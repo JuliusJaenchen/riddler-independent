@@ -14,7 +14,7 @@ public class BacktrackingSolver implements IterativeSudokuSolver {
     @Override
     public boolean doSolvingStep(Sudoku sudoku) {
         Cell cell;
-        while ((cell = getNextUnsolved(backtrackingStack.size(), sudoku)) != null) {
+        while ((cell = getNextUnsolved(sudoku)) != null) {
             cell.setAssumedValue(cell.getSingleAssumedPossible());
             backtrackingStack.push(cell);
 
@@ -44,9 +44,9 @@ public class BacktrackingSolver implements IterativeSudokuSolver {
         return false;
     }
 
-    private Cell getNextUnsolved(int index, Sudoku sudoku) {
+    private Cell getNextUnsolved(Sudoku sudoku) {
         var cells = sudoku.getAllCells();
-        for (int i = index; i < cells.size(); i++) {
+        for (int i = backtrackingStack.size(); i < cells.size(); i++) {
             var cell = cells.get(i);
             if (!cell.isFilled()) return cell;
         }
