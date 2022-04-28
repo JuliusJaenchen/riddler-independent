@@ -18,17 +18,25 @@ public class SudokuSolver {
     }
 
     public Sudoku solve(Sudoku sudoku) {
-        for (int solvingStepIndex = 0; solvingStepIndex < solvingComponents.size(); solvingStepIndex++) {
-            //System.out.println("step " + solvingStepIndex);
-            try {
-                if (solvingComponents.get(solvingStepIndex).doSolvingStep(sudoku))
-                    solvingStepIndex = 0;
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(0);
-            }
+        Sudoku solution;
+        try {
+            solution = solveWithSteps(sudoku);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+            solution = null;
         }
 
+        return solution;
+    }
+
+    private Sudoku solveWithSteps(Sudoku sudoku) {
+        for (int solvingStepIndex = 0; solvingStepIndex < solvingComponents.size(); solvingStepIndex++) {
+            //System.out.println("step " + solvingStepIndex);
+            boolean solvingStepMadeChanges = solvingComponents.get(solvingStepIndex).doSolvingStep(sudoku);
+            if (solvingStepMadeChanges)
+                solvingStepIndex = 0;
+        }
         return sudoku;
     }
 }
