@@ -14,7 +14,7 @@ public class AdvancedReducePossiblesSolver implements IterativeSudokuSolver {
             for (int i = 1; i <= 9; i++) {
                 Set<CellGroup> rows = new HashSet<>();
                 for (Cell cell : box.getCells()) {
-                    if (!cell.isSet() && cell.getPossibles().contains(i)) {
+                    if (!cell.isFilled() && cell.getPossibles().contains(i)) {
                         rows.add(getRow(cell, sudoku));
                     }
                 }
@@ -23,7 +23,7 @@ public class AdvancedReducePossiblesSolver implements IterativeSudokuSolver {
 
                 Set<CellGroup> cols = new HashSet<>();
                 for (Cell cell : box.getCells()) {
-                    if (!cell.isSet() && cell.getPossibles().contains(i)) {
+                    if (!cell.isFilled() && cell.getPossibles().contains(i)) {
                         cols.add(getCol(cell, sudoku));
                     }
                 }
@@ -37,7 +37,7 @@ public class AdvancedReducePossiblesSolver implements IterativeSudokuSolver {
         if (groups.size() == 1) {
             CellGroup group = groups.iterator().next();
             for (Cell cell : group.getCells()) {
-                if (!cell.isSet() && !getBoxOfCell(cell, sudoku).equals(box) && cell.getPossibles().contains(i)) {
+                if (!cell.isFilled() && !getBoxOfCell(cell, sudoku).equals(box) && cell.getPossibles().contains(i)) {
                     cell.removePossible(i);
                     return true;
                 }
@@ -55,7 +55,7 @@ public class AdvancedReducePossiblesSolver implements IterativeSudokuSolver {
         for (CellGroup row : rows) {
             level++;
             for (Cell cell : row.getCells()) {
-                if (!cell.isSet() && cell.getPossibles().contains(i) && !getBoxOfCell(cell, sudoku).equals(box)) {
+                if (!cell.isFilled() && cell.getPossibles().contains(i) && !getBoxOfCell(cell, sudoku).equals(box)) {
                     //System.out.println("Found " + i + " in another box");
                     indices.add(level);
                 }
@@ -66,7 +66,7 @@ public class AdvancedReducePossiblesSolver implements IterativeSudokuSolver {
             for (CellGroup row : rows) {
                 level++;
                 for (Cell cell : row.getCells()) {
-                    if (!cell.isSet() && cell.getPossibles().contains(i) && getBoxOfCell(cell, sudoku).equals(box) && indices.contains(level)) {
+                    if (!cell.isFilled() && cell.getPossibles().contains(i) && getBoxOfCell(cell, sudoku).equals(box) && indices.contains(level)) {
                         cell.removePossible(i);
                         System.out.println("REMOVED POSSBILE");
                         return true;

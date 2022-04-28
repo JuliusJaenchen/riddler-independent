@@ -20,7 +20,7 @@ public class CellGroup {
     public Set<Integer> getAllValues() {
         var values = new HashSet<Integer>();
         for (Cell cell : cells) {
-            if (cell.isSet()) {
+            if (cell.isFilled()) {
                 values.add(cell.getValue());
             }
         }

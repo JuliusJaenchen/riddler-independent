@@ -45,7 +45,7 @@ public class SudokuValidator {
     private boolean hasDuplicate(CellGroup testSubject) {
         Set<Integer> encounteredValues = new HashSet<>();
         for (Cell cell : testSubject.getCells()) {
-            if (cell.isSet()) {
+            if (cell.isFilled()) {
                 if (encounteredValues.contains(cell.getValue())) {
                     return true;
                 }

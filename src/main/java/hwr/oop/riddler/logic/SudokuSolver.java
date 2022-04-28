@@ -19,7 +19,7 @@ public class SudokuSolver {
 
     public Sudoku solve(Sudoku sudoku) {
         for (int solvingStepIndex = 0; solvingStepIndex < solvingComponents.size(); solvingStepIndex++) {
-            //System.out.println("step " + solvingIndex);
+            //System.out.println("step " + solvingStepIndex);
             try {
                 if (solvingComponents.get(solvingStepIndex).doSolvingStep(sudoku))
                     solvingStepIndex = 0;

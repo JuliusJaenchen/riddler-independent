@@ -42,8 +42,8 @@ public class Cell {
     }
 
 
-    public boolean isSet() {
-        return getValue() != 0;
+    public boolean isFilled() {
+        return value != 0;
     }
 
     public void setValue(int value) {

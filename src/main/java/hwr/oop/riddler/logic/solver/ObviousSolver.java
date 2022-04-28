@@ -7,7 +7,7 @@ public class ObviousSolver implements IterativeSudokuSolver {
     @Override
     public boolean doSolvingStep(Sudoku sudoku) {
         for (Cell cell : sudoku.getAllCells()) {
-            if (!cell.isSet() && cell.getPossibles().size() == 1) {
+            if (!cell.isFilled() && cell.getPossibles().size() == 1) {
                 cell.setValue(cell.getPossibles().iterator().next());
                 return true;
             }

@@ -48,7 +48,7 @@ public class BacktrackingSolver implements IterativeSudokuSolver {
         var cells = sudoku.getAllCells();
         for (int i = index; i < cells.size(); i++) {
             var cell = cells.get(i);
-            if (!cell.isSet()) return cell;
+            if (!cell.isFilled()) return cell;
         }
         return null;
     }
