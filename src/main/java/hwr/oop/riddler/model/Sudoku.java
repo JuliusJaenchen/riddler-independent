@@ -1,12 +1,13 @@
 package hwr.oop.riddler.model;
 
-import hwr.oop.riddler.model.component.*;
+import hwr.oop.riddler.model.component.Cell;
+import hwr.oop.riddler.model.component.CellGroup;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.function.IntFunction;
 
 public class Sudoku {
-    public Cell[][] cells;
+    private Cell[][] cells;
     private final int size;
 
     public Sudoku(int[][] input) {
@@ -20,82 +21,79 @@ public class Sudoku {
             int[] row = input[rowIndex];
             for (int columnIndex = 0; columnIndex < size; columnIndex++) {
                 int cellValue = row[columnIndex];
-                cells[rowIndex][columnIndex] = new Cell(cellValue);
+                Cell cell;
+                if (cellValue != 0) {
+                    cell = new Cell(cellValue);
+                } else {
+                    cell = new Cell();
+                }
+                cells[rowIndex][columnIndex] = cell;
             }
         }
     }
 
-    public Cell[] getRow(int rowIndex) {
-        return cells[rowIndex];
-    }
-
-    public Cell[] getColumn(int columnIndex) {
-        var column = new Cell[size];
-        for (int rowIndex = 0; rowIndex < size; rowIndex++) {
-            column[rowIndex] = cells[rowIndex][columnIndex];
+    public List<Cell> getAllCells() {
+        var collectedCells = new ArrayList<Cell>();
+        for (Cell[] rows : cells) {
+            Collections.addAll(collectedCells, rows);
         }
-        return column;
+        return collectedCells;
     }
 
-    public Cell[] getBox(int boxIndex) {
-        var box = new Cell[size];
+    public CellGroup getRow(int rowIndex) {
+        return new CellGroup(List.of(cells[rowIndex]));
+    }
+
+    public CellGroup getColumn(int columnIndex) {
+        var column = new ArrayList<Cell>();
+        for (int rowIndex = 0; rowIndex < size; rowIndex++) {
+            column.add(this.cells[rowIndex][columnIndex]);
+        }
+        return new CellGroup(column);
+    }
+
+    public void print() {
+        for (Cell[] rows : cells) {
+            for (Cell cell : rows) {
+                System.out.print(cell.getValue() + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public CellGroup getBox(int boxIndex) {
+        var boxCells = new ArrayList<Cell>(9);
         int boxLatitude = boxIndex / 3;
         int boxLongitude = boxIndex % 3;
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                box[3*y + x] = cells[boxLatitude + y][boxLongitude + x];
+                boxCells.add(cells[boxLatitude * 3 + y][boxLongitude * 3 + x]);
             }
         }
-        return box;
+        return new CellGroup(boxCells);
     }
 
-    public Cell[][] getRows() {
-        return cells;
+    public Set<CellGroup> getRows() {
+        return getGroup(this::getRow);
     }
 
-    public Cell[][] getColumns() {
-        Cell[][] column = new Cell[size][size];
+    public Set<CellGroup> getColumns() {
+        return getGroup(this::getColumn);
+    }
+
+    public Set<CellGroup> getBoxes() {
+        return getGroup(this::getBox);
+    }
+
+    private Set<CellGroup> getGroup(IntFunction<CellGroup> function) {
+        var group = new HashSet<CellGroup>(9);
         for (int i = 0; i < size; i++) {
-            column[i] = getColumn(i);
+            group.add(function.apply(i));
         }
-        return column;
+        return group;
     }
 
-    public Cell[][] getBoxes() {
-        Cell[][] boxes = new Cell[size][size];
-        for (int i = 0; i < size; i++) {
-            boxes[i] = getBox(i);
-        }
-        return boxes;
-    }
-
-    public Set<Integer> getRowValues(int rowIndex) {
-        Set<Integer> row = new HashSet<>();
-        for (Cell cell : getRow(rowIndex)) {
-            if (cell.value != 0) {
-                row.add(cell.value);
-            }
-        }
-        return row;
-    }
-
-    public Set<Integer> getColumnValues(int columnIndex) {
-        Set<Integer> column = new HashSet<>();
-        for (Cell cell : getColumn(columnIndex)) {
-            if (cell.value != 0) {
-                column.add(cell.value);
-            }
-        }
-        return column;
-    }
-
-    public Set<Integer> getBoxValues(int boxIndex) {
-        Set<Integer> box = new HashSet<>();
-        for (Cell cell : getBox(boxIndex)) {
-            if (cell.value != 0) {
-                box.add(cell.value);
-            }
-        }
-        return box;
+    public Cell getCellAt(int row, int column) {
+        return cells[row][column];
     }
 }

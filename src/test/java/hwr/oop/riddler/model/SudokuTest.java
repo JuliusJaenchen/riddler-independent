@@ -1,8 +1,11 @@
 package hwr.oop.riddler.model;
 
 import hwr.oop.riddler.model.component.Cell;
+import hwr.oop.riddler.model.component.CellGroup;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -28,7 +31,7 @@ class SudokuTest {
     void sudoku_constructorFillsCellsCorrectly() {
         for (int rowIndex = 0; rowIndex < unsolvedSudokuArray.length; rowIndex ++) {
             for (int columnIndex = 0; columnIndex < unsolvedSudokuArray[0].length; columnIndex++) {
-                if (unsolvedSudoku.cells[rowIndex][columnIndex].value != unsolvedSudokuArray[rowIndex][columnIndex]) {
+                if (unsolvedSudoku.getCellAt(rowIndex, columnIndex).getValue() != unsolvedSudokuArray[rowIndex][columnIndex]) {
                     fail();
                 }
             }
@@ -37,10 +40,10 @@ class SudokuTest {
 
     @Test
     void sudoku_getsFirstRow() {
-        int[] firstRowValues = {0,0,0, 9,0,0, 4,0,0};
-        Cell[] row = unsolvedSudoku.getRow(0);
+        int[] firstRowValues = {0, 0, 0, 9, 0, 0, 4, 0, 0};
+        CellGroup row = unsolvedSudoku.getRow(0);
         for (int i = 0; i < 9; i++) {
-            if (row[i].value != firstRowValues[i]) {
+            if (row.getCells().get(i).getValue() != firstRowValues[i]) {
                 fail();
             }
         }
@@ -48,10 +51,10 @@ class SudokuTest {
 
     @Test
     void sudoku_getsFirstColumn() {
-        int[] firstColumnValues = {0,5,9,0,0,6,0,0,0};
-        Cell[] column = unsolvedSudoku.getColumn(0);
+        int[] firstColumnValues = {0, 5, 9, 0, 0, 6, 0, 0, 0};
+        CellGroup row = unsolvedSudoku.getColumn(0);
         for (int i = 0; i < 9; i++) {
-            if (column[i].value != firstColumnValues[i]) {
+            if (row.getCells().get(i).getValue() != firstColumnValues[i]) {
                 fail();
             }
         }
@@ -59,19 +62,17 @@ class SudokuTest {
 
     @Test
     void sudoku_getsFirstBox() {
-        int[] firstBoxValues = {0,0,0,5,0,6,9,0,0};
-        Cell[] box = unsolvedSudoku.getBox(0);
-        for (int i = 0; i < 9; i++) {
-            if (box[i].value != firstBoxValues[i]) {
-                fail();
-            }
+        List<Integer> firstBoxValues = List.of(0, 0, 0, 5, 0, 6, 9, 0, 0);
+        CellGroup box = unsolvedSudoku.getBox(0);
+        if (!Arrays.equals(box.getCells().stream().map(Cell::getValue).toArray(), firstBoxValues.toArray())) {
+            fail();
         }
     }
 
     @Test
     void sudoku_getsFirstRowValues() {
         Set<Integer> expectedValues = Set.of(9, 4);
-        if (!unsolvedSudoku.getRowValues(0).equals(expectedValues)) {
+        if (!unsolvedSudoku.getRow(0).getAllValues().equals(expectedValues)) {
             fail();
         }
     }
@@ -79,7 +80,8 @@ class SudokuTest {
     @Test
     void sudoku_getsFirstColumnValues() {
         Set<Integer> expectedValues = Set.of(5, 9, 6);
-        if (!unsolvedSudoku.getColumnValues(0).equals(expectedValues)) {
+        System.out.println(Arrays.toString(unsolvedSudoku.getRow(0).getAllValues().toArray()));
+        if (!unsolvedSudoku.getColumn(0).getAllValues().equals(expectedValues)) {
             fail();
         }
     }
@@ -87,7 +89,7 @@ class SudokuTest {
     @Test
     void sudoku_getsFirstBoxValues() {
         Set<Integer> expectedValues = Set.of(5, 9, 6);
-        if (!unsolvedSudoku.getBoxValues(0).equals(expectedValues)) {
+        if (!unsolvedSudoku.getBox(0).getAllValues().equals(expectedValues)) {
             fail();
         }
     }
