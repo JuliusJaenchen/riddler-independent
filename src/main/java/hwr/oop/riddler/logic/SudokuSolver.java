@@ -3,18 +3,16 @@ package hwr.oop.riddler.logic;
 import hwr.oop.riddler.logic.solver.*;
 import hwr.oop.riddler.model.Sudoku;
 
-import java.util.List;
-
 public class SudokuSolver {
-    List<IterativeSudokuSolver> solvingComponents;
+    IterativeSudokuSolver[] solvingComponents;
 
     public SudokuSolver() {
-        solvingComponents = List.of(
+        solvingComponents = new IterativeSudokuSolver[]{
                 new SimpleReducePossiblesSolver(),
                 new AdvancedReducePossiblesSolver(),
                 new ObviousSolver(),
                 new BacktrackingSolver()
-        );
+        };
     }
 
     public Sudoku solve(Sudoku sudoku) {
@@ -31,11 +29,13 @@ public class SudokuSolver {
     }
 
     private Sudoku solveWithSteps(Sudoku sudoku) {
-        for (int solvingStepIndex = 0; solvingStepIndex < solvingComponents.size(); solvingStepIndex++) {
+        for (IterativeSudokuSolver solvingComponent : solvingComponents) {
             //System.out.println("step " + solvingStepIndex);
-            boolean solvingStepMadeChanges = solvingComponents.get(solvingStepIndex).doSolvingStep(sudoku);
-            if (solvingStepMadeChanges)
-                solvingStepIndex = 0;
+            boolean solvingStepMadeChanges = solvingComponent.doSolvingStep(sudoku);
+            if (solvingStepMadeChanges) {
+                solveWithSteps(sudoku);
+                break;
+            }
         }
         return sudoku;
     }

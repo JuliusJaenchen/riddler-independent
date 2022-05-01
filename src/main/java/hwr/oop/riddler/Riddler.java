@@ -2,11 +2,7 @@ package hwr.oop.riddler;
 
 import hwr.oop.riddler.io.FileConverter;
 import hwr.oop.riddler.logic.SudokuSolver;
-import hwr.oop.riddler.logic.SudokuValidator;
-import hwr.oop.riddler.logic.solver.*;
 import hwr.oop.riddler.model.Sudoku;
-
-import java.util.List;
 
 public class Riddler {
     public static void main(String[] args) throws IllegalArgumentException {
