@@ -1,7 +1,7 @@
 package hwr.oop.riddler;
 
 import hwr.oop.riddler.io.FileConverter;
-import hwr.oop.riddler.logic.SudokuSolver;
+import hwr.oop.riddler.logic.solver.SudokuSolver;
 import hwr.oop.riddler.model.Sudoku;
 
 public class Riddler {

@@ -1,9 +1,9 @@
-package hwr.oop.riddler.logic.solver;
+package hwr.oop.riddler.logic.solver.component;
 
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 
-public class ObviousSolver implements IterativeSudokuSolver {
+public class SinglePossibleImplementor implements IterativeSudokuSolver {
     @Override
     public boolean doSolvingStep(Sudoku sudoku) {
         for (Cell cell : sudoku.getAllCells()) {

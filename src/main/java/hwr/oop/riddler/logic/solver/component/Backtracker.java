@@ -1,4 +1,4 @@
-package hwr.oop.riddler.logic.solver;
+package hwr.oop.riddler.logic.solver.component;
 
 import hwr.oop.riddler.logic.SudokuValidator;
 import hwr.oop.riddler.model.Sudoku;
@@ -7,7 +7,7 @@ import hwr.oop.riddler.model.component.Cell;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class BacktrackingSolver implements IterativeSudokuSolver {
+public class Backtracker implements IterativeSudokuSolver {
 
     private final Deque<Cell> backtrackingStack = new ArrayDeque<>();
 

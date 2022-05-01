@@ -1,6 +1,6 @@
-package hwr.oop.riddler.logic;
+package hwr.oop.riddler.logic.solver;
 
-import hwr.oop.riddler.logic.solver.*;
+import hwr.oop.riddler.logic.solver.component.*;
 import hwr.oop.riddler.model.Sudoku;
 
 public class SudokuSolver {
@@ -8,10 +8,10 @@ public class SudokuSolver {
 
     public SudokuSolver() {
         solvingComponents = new IterativeSudokuSolver[]{
-                new SimpleReducePossiblesSolver(),
-                new AdvancedReducePossiblesSolver(),
-                new ObviousSolver(),
-                new BacktrackingSolver()
+                new PossiblesEliminator(),
+                new AdvancedPossiblesEliminator(),
+                new SinglePossibleImplementor(),
+                new Backtracker()
         };
     }
 

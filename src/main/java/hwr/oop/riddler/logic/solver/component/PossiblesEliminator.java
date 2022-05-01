@@ -1,4 +1,4 @@
-package hwr.oop.riddler.logic.solver;
+package hwr.oop.riddler.logic.solver.component;
 
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
@@ -6,7 +6,7 @@ import hwr.oop.riddler.model.component.CellGroup;
 
 import java.util.HashSet;
 
-public class SimpleReducePossiblesSolver implements IterativeSudokuSolver {
+public class PossiblesEliminator implements IterativeSudokuSolver {
 
     public boolean doSolvingStep(Sudoku sudoku) {
         var allCellGroups = new HashSet<CellGroup>();
