@@ -10,6 +10,7 @@ import java.util.Deque;
 public class Backtracker implements IterativeSudokuSolver {
 
     private final Deque<Cell> backtrackingStack = new ArrayDeque<>();
+    private final SudokuValidator validator = new SudokuValidator();
 
     @Override
     public boolean doSolvingStep(Sudoku sudoku) {
@@ -18,7 +19,7 @@ public class Backtracker implements IterativeSudokuSolver {
             cell.setAssumedValue(cell.getSingleAssumedPossible());
             backtrackingStack.push(cell);
 
-            if (!new SudokuValidator().isValid(sudoku) && backtrack()) {
+            if (validator.isValid(sudoku) && backtrack()) {
                 return true;
             }
         }
